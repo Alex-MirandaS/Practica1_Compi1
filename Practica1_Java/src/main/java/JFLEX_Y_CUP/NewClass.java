@@ -4,10 +4,25 @@
  */
 package JFLEX_Y_CUP;
 
+import Objetos.Token;
+import java.util.ArrayList;
+
 /**
  *
  * @author alex
  */
 public class NewClass {
-    
+
+    int asdfasdfasdfas;
+
+    private ArrayList<Token> tokens = new ArrayList<Token>();
+
+    public void agregarToken(String lexema, int fila, int columna) {
+        tokens.add(new Token(lexema, fila, columna));
+           }
+
+    public ArrayList<Token> getTokens() {
+        return tokens;
+    }
+
 }
