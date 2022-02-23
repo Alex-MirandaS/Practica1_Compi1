@@ -34,12 +34,8 @@ public class Controlador {
         Reader reader = new StringReader(principalGUI.getAreaTexto().getText());
         a = new AnalizadorLexico(reader);
         
-        try {
-            a.yylex();
-            llenarTabla();
-        } catch (IOException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // a.|);
+        llenarTabla();
         
         
     }

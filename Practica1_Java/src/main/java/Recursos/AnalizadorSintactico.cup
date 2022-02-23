@@ -60,15 +60,86 @@ terminal PUNTO, COMA, PUNTOYCOMA, MAS, MENOS, POR, DIVIDIDO, PABIERTO, PCERRADO,
 terminal Integer NUMERO, LETRAS, DECIMAL, CADENA;
 
 // seccion de no termimales
-non terminal    s;
-
-
-// gramatica tipo 2
-// S -> entero mas entero
-// S -> entero mas entero coma S
-// 33+33,35+88
-
+non terminal    n;
+non terminal    s3;
+non terminal    s4;
+non terminal    l;
+non terminal    e;
+non terminal    f;
+non terminal    v;
+non terminal    u;
+non terminal    o;
+non terminal    g;
+non terminal    cp;
+non terminal    m;
+non terminal    bp;
+/*
 s   ::= ENTERO:entero1 MAS ENTERO:entero2                   {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
     |   ENTERO:entero1 MAS ENTERO:entero2 COMA s            {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
     |   error  s                            {: System.out.println("accion desde gramatica"); :}
+    ;
+*/
+n   ::= DEF bp
+    ;
+
+bp  ::= BARRAS LLABIERTO s3 LLCERRADO
+    |   PIE LLABIERTO s4 LLCERRADO
+    ;
+
+s3  ::= TITULO COMILLA l COMILLA PUNTOYCOMA s3 
+    |   EJEX CORABIERTO e CORABIERTO PUNTOYCOMA s3
+    |   EJEY CORABIERTO f CORABIERTO PUNTOYCOMA s3
+    |   UNIR CORABIERTO g CORABIERTO PUNTOYCOMA s3 
+    ;
+
+s4  ::= TITULO COMILLA l COMILLA PUNTOYCOMA s4
+    |   TITULO CABIERTO l CCERRADO PUNTOYCOMA s4
+    |   TIPO cp PUNTOYCOMA s4 
+    |   ETIQUETAS CORABIERTO e CORCERRADO PUNTOYCOMA s4
+    |   VALORES CORABIERTO m CORCERRADO PUNTOYCOMA s4
+    |   TOTAL NUMERO PUNTOYCOMA s4
+    |   UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s4 
+    |   EXTRA COMILLA LETRAS COMILLA s4
+    |   EXTRA CABIERTO LETRAS CCERRADO s4
+    ;
+
+l   ::= CADENA
+    |   LETRAS
+    ;
+
+cp  ::= CANTIDAD
+    |   PORCENTAJE
+    ;
+
+e   ::= COMILLA LETRAS COMILLA COMA e
+    |   COMILLA LETRAS COMILLA
+    |   CABIERTO LETRAS CCERRADO COMA e
+    |   CABIERTO LETRAS CCERRADO
+    ;
+
+m   ::= NUMERO COMA m
+    |   NUMERO
+    ;
+
+g   ::= LLABIERTO NUMERO COMA NUMERO LLCERRADO COMA g
+    |   LLABIERTO NUMERO COMA NUMERO LLABIERTO
+    ;
+
+f   ::= v COMA f
+    |   v
+    ;
+
+v   ::= NUMERO
+    |   NUMERO u
+    ;
+
+u   ::= o NUMERO u
+    |   o NUMERO
+    |   o PABIERTO NUMERO u PCERRADO
+    ;
+	
+o   ::= MAS
+    |   MENOS
+    |   POR
+    |   DIVIDIDO
     ;

@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 /*segunda seccion: configuracion*/
 %class AnalizadorLexico
-/*%unicode
+%unicode
 %line
 %column
 %cup
 %public
-*/
-//BORRAR
+
+/*BORRAR
 %unicode
 %line
 %column
 %int
 %public
-
+*/
 //Palabras Reservadas
 DEF = ("Def"|"def")
 BARRAS = ("Barras")
