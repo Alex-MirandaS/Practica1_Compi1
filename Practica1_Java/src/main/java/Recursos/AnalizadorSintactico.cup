@@ -3,25 +3,22 @@
 package JFLEX_Y_CUP;
 
 import java_cup.runtime.*;
-import AnalizadorLexico;
 
 parser code {:
+
+public AnalizadorSintactico(AnalizadorLexico lexico){
+    super(lexico);
+}
+
+private Symbol s;
+
+
+public Symbol getS(){
+return this.s;
+}
+
         
-  /*  public SumasParser(SumasLexer lexer) {
-        super(lexer);
-    }
-
-    private int count = 0;
-
-    private void increaseCount() {
-        count++;
-    }
-    
-    public int getCount() {
-        return count;
-    }
-
-
+ 
     public void report_error(String message, Object info) {
         System.out.println("public void report_error");
     }
@@ -39,7 +36,7 @@ parser code {:
         if (cur_token.sym == sym.EOF) {
             System.out.println("public void unrecoveredsyntax_error");
         }
-    }*/
+    }
 :}
 
 
@@ -55,66 +52,50 @@ parser code {:
  */
 
 
-terminal DEF, BARRAS, PIE, TITULO, EJEX, EJEY, ETIQUETAS, VALORES, UNIR, TIPO, CANTIDAD, PORCENTAJE, TOTAL, EXTRA;
-terminal PUNTO, COMA, PUNTOYCOMA, MAS, MENOS, POR, DIVIDIDO, PABIERTO, PCERRADO, CORABIERTO, CORCERRADO, LLABIERTO, LLCERRADO, COMILLA, CABIERTO, CCERRADO, COMENTARIO;
-terminal Integer NUMERO, LETRAS, DECIMAL, CADENA;
+terminal DEF, BARRAS, PIE, TITULO, EJEX, EJEY, ETIQUETAS, VALORES, UNIR, TIPO, CANTIDAD, PORCENTAJE, TOTAL, EXTRA,
+PUNTO, COMA, PUNTOYCOMA, MAS, MENOS, POR, DIVIDIDO, PABIERTO, PCERRADO, CORABIERTO, CORCERRADO, LLABIERTO, LLCERRADO, COMILLA, CABIERTO, CCERRADO, COMENTARIO,
+NUMERO, DECIMAL, CADENA;
 
 // seccion de no termimales
-non terminal    n;
-non terminal    s3;
-non terminal    s4;
-non terminal    l;
-non terminal    e;
-non terminal    f;
-non terminal    v;
-non terminal    u;
-non terminal    o;
-non terminal    g;
-non terminal    cp;
-non terminal    m;
-non terminal    bp;
+
+non terminal    n, s3, s4, f, v, u, o, g, cp, m, bp, i;
+
+
+start with n;
 /*
-s   ::= ENTERO:entero1 MAS ENTERO:entero2                   {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
-    |   ENTERO:entero1 MAS ENTERO:entero2 COMA s            {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
+s   ::= NUMERO:entero1 MAS NUMERO:entero2                   {: System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
+    |   NUMERO:entero1 MAS NUMERO:entero2 COMA s            {: System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
     |   error  s                            {: System.out.println("accion desde gramatica"); :}
     ;
 */
-n   ::= DEF bp
+
+n   ::= DEF bp n
+    |   DEF bp 
     ;
 
-bp  ::= BARRAS LLABIERTO s3 LLCERRADO
-    |   PIE LLABIERTO s4 LLCERRADO
+bp  ::= BARRAS LLABIERTO s3 
+    |   PIE LLABIERTO s4 
     ;
 
-s3  ::= TITULO COMILLA l COMILLA PUNTOYCOMA s3 
-    |   EJEX CORABIERTO e CORABIERTO PUNTOYCOMA s3
-    |   EJEY CORABIERTO f CORABIERTO PUNTOYCOMA s3
-    |   UNIR CORABIERTO g CORABIERTO PUNTOYCOMA s3 
+s3  ::= TITULO  CADENA  PUNTOYCOMA s3 
+    |   EJEX CORABIERTO  i  CORCERRADO PUNTOYCOMA s3
+    |   EJEY CORABIERTO f CORCERRADO PUNTOYCOMA s3
+    |   UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s3 
+    |   LLCERRADO
     ;
 
-s4  ::= TITULO COMILLA l COMILLA PUNTOYCOMA s4
-    |   TITULO CABIERTO l CCERRADO PUNTOYCOMA s4
+s4  ::= TITULO CADENA PUNTOYCOMA s4
     |   TIPO cp PUNTOYCOMA s4 
-    |   ETIQUETAS CORABIERTO e CORCERRADO PUNTOYCOMA s4
+    |   ETIQUETAS CORABIERTO  i  CORCERRADO PUNTOYCOMA s4
     |   VALORES CORABIERTO m CORCERRADO PUNTOYCOMA s4
     |   TOTAL NUMERO PUNTOYCOMA s4
     |   UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s4 
-    |   EXTRA COMILLA LETRAS COMILLA s4
-    |   EXTRA CABIERTO LETRAS CCERRADO s4
-    ;
-
-l   ::= CADENA
-    |   LETRAS
+    |   EXTRA  CADENA PUNTOYCOMA s4
+    |   LLCERRADO
     ;
 
 cp  ::= CANTIDAD
     |   PORCENTAJE
-    ;
-
-e   ::= COMILLA LETRAS COMILLA COMA e
-    |   COMILLA LETRAS COMILLA
-    |   CABIERTO LETRAS CCERRADO COMA e
-    |   CABIERTO LETRAS CCERRADO
     ;
 
 m   ::= NUMERO COMA m
@@ -122,7 +103,7 @@ m   ::= NUMERO COMA m
     ;
 
 g   ::= LLABIERTO NUMERO COMA NUMERO LLCERRADO COMA g
-    |   LLABIERTO NUMERO COMA NUMERO LLABIERTO
+    |   LLABIERTO NUMERO COMA NUMERO LLCERRADO
     ;
 
 f   ::= v COMA f
@@ -142,4 +123,8 @@ o   ::= MAS
     |   MENOS
     |   POR
     |   DIVIDIDO
+    ;
+
+i   ::= CADENA COMA i
+    |   CADENA
     ;

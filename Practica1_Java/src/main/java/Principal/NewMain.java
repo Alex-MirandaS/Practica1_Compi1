@@ -5,6 +5,7 @@
 package Principal;
 
 import GUI.PrincipalGUI;
+import java.io.File;
 
 /**
  *
@@ -14,6 +15,8 @@ public class NewMain {
 
     PrincipalGUI principalGUI;
     public static void main(String[] args) {
+    
+        
         Controlador controlador= new Controlador();
         controlador.iniciar();
         

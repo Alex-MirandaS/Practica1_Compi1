@@ -9,5 +9,6 @@ package Instrucciones;
  * @author alex
  */
 public class Instrucción {
+    String instrucción;
     
 }

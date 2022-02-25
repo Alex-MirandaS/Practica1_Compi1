@@ -20,20 +20,19 @@ public class sym {
   public static final int PIE = 4;
   public static final int PORCENTAJE = 13;
   public static final int ETIQUETAS = 8;
-  public static final int LETRAS = 34;
   public static final int EJEY = 7;
   public static final int EJEX = 6;
   public static final int BARRAS = 3;
   public static final int DIVIDIDO = 22;
   public static final int TITULO = 5;
   public static final int CORCERRADO = 26;
-  public static final int DECIMAL = 35;
   public static final int EOF = 0;
+  public static final int DECIMAL = 34;
   public static final int VALORES = 9;
   public static final int error = 1;
   public static final int COMILLA = 29;
   public static final int COMA = 17;
-  public static final int CADENA = 36;
+  public static final int CADENA = 35;
   public static final int COMENTARIO = 32;
   public static final int MENOS = 20;
   public static final int TOTAL = 14;
@@ -80,7 +79,6 @@ public class sym {
   "CCERRADO",
   "COMENTARIO",
   "NUMERO",
-  "LETRAS",
   "DECIMAL",
   "CADENA"
   };
