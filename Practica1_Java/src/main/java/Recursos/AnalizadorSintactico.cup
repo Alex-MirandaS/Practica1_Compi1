@@ -109,20 +109,20 @@ bp  ::= BARRAS:b LLABIERTO s3 {:añadirString((String)b);reiniciarTemp();:}
     |   PIE:p LLABIERTO s4 {:añadirString((String)p);reiniciarTemp();:}
     ;
 
-s3  ::= TITULO  CADENA:c  PUNTOYCOMA s3                 {:añadirString("T "+"\n"+ (String)c);:}
-    |   EJEX CORABIERTO  i:e  CORCERRADO PUNTOYCOMA s3  {:añadirString("EX"+"\n"+(String)e);:}
-    |   EJEY CORABIERTO f:d CORCERRADO PUNTOYCOMA s3    {:añadirString("EY "+"\n"+(String)d);:}
-    |   UNIR CORABIERTO g:x CORCERRADO PUNTOYCOMA s3    {:añadirString(("U "+"\n"+(String)x));:}
+s3  ::= TITULO  CADENA:c  PUNTOYCOMA s3                 {:añadirString("T"+"\n"+ (String)c);:}
+    |   EJEX CORABIERTO  i:e  CORCERRADO PUNTOYCOMA s3  {:añadirString("X"+"\n"+(String)e);:}
+    |   EJEY CORABIERTO f:d CORCERRADO PUNTOYCOMA s3    {:añadirString("Y"+"\n"+(String)d);:}
+    |   UNIR CORABIERTO g:x CORCERRADO PUNTOYCOMA s3    {:añadirString(("U"+"\n"+(String)x));:}
     |   LLCERRADO  
     ;
 
-s4  ::= TITULO  CADENA:c  PUNTOYCOMA s4                     {:añadirString("T "+"\n"+ (String)c);:}
-    |   TIPO cp:c PUNTOYCOMA s4                             {:añadirString("TI "+"\n"+ (String)c);:}
-    |   ETIQUETAS CORABIERTO  i:e  CORCERRADO PUNTOYCOMA s4 {:añadirString("ET"+"\n"+(String)e);:}
+s4  ::= TITULO  CADENA:c  PUNTOYCOMA s4                     {:añadirString("T"+"\n"+ (String)c);:}
+    |   TIPO cp:c PUNTOYCOMA s4                             {:añadirString("O"+"\n"+ (String)c);:}
+    |   ETIQUETAS CORABIERTO  i:e  CORCERRADO PUNTOYCOMA s4 {:añadirString("E"+"\n"+(String)e);:}
     |   VALORES CORABIERTO m:e CORCERRADO PUNTOYCOMA s4     {:añadirString("V"+"\n"+(String)e);:}
-    |   TOTAL NUMERO:e PUNTOYCOMA s4                        {:añadirString("TO"+"\n"+(String)e);:}
-    |   UNIR CORABIERTO g:e CORCERRADO PUNTOYCOMA s4        {:añadirString("U "+"\n"+(String)e);:}
-    |   EXTRA  CADENA:e  PUNTOYCOMA s4                      {:añadirString("EXT"+"\n"+(String)e);:}
+    |   TOTAL NUMERO:e PUNTOYCOMA s4                        {:añadirString("L"+"\n"+(String)e);:}
+    |   UNIR CORABIERTO g:e CORCERRADO PUNTOYCOMA s4        {:añadirString("U"+"\n"+(String)e);:}
+    |   EXTRA  CADENA:e  PUNTOYCOMA s4                      {:añadirString("A"+"\n"+(String)e);:}
     |   LLCERRADO
     ;
 
@@ -134,7 +134,7 @@ m   ::= NUMERO:c COMA:co m:e   {: String cadena = (String)c +(String)co +"\n"+ (
     |   NUMERO:c               {: RESULT = String.format("%s",c+"\n");:}
     ;
 
-g   ::= LLABIERTO NUMERO:num1 COMA:c NUMERO:num2 LLCERRADO COMA g:e   {: String cadena = (String)num1 + (String)c +(String)num2 +"\n"+ (String)e; RESULT = cadena;:}
+g   ::= LLABIERTO NUMERO:num1 COMA:c NUMERO:num2 LLCERRADO COMA g:e   {: String cadena = (String)num1 + (String)c +(String)num2 +"\n"+","+ (String)e; RESULT = cadena;:}
     |   LLABIERTO NUMERO:num1 COMA:c NUMERO:num2 LLCERRADO   {: String cadena = (String)num1+(String)c+(String)num2+"\n" ; RESULT = cadena;:}
     ;
 

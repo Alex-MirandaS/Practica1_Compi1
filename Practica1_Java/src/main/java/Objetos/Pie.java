@@ -12,14 +12,67 @@ import java.util.ArrayList;
  */
 public class Pie extends Grafica{
    
-    private String titulo;
     private String tipo;
-    private int total;
+    private double total;
     private String extra;
     private ArrayList<String> etiquetas = new ArrayList<>();
-    private ArrayList<Double> valores = new ArrayList<>();
-    private ArrayList<String> unirx = new ArrayList<>();
-    private ArrayList<String> uniry = new ArrayList<>();
+    private ArrayList<String> valores = new ArrayList<>();
+
+//    public Pie(String titulo) {
+//        super(titulo);
+//    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
+    public ArrayList<String> getEtiquetas() {
+        return etiquetas;
+    }
+
+    public void setEtiquetas(ArrayList<String> etiquetas) {
+        this.etiquetas = etiquetas;
+    }
+
+    public ArrayList<String> getValores() {
+        return valores;
+    }
+
+    public void setValores(ArrayList<String> valores) {
+        this.valores = valores;
+    }
+
+    @Override
+    public void datosGrafica() {
+        System.out.println(this.getTitulo());
+        System.out.println(tipo);
+        imprimirDatos(etiquetas);
+        imprimirDatos(valores);
+        System.out.println(total);
+        imprimirDatos(unirx);
+        imprimirDatos(uniry);
+        System.out.println(extra);
+    }
     
 
 }

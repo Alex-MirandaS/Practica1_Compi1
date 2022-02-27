@@ -12,24 +12,12 @@ import java.util.ArrayList;
  */
 public class Barras extends Grafica {
 
-    private String titulo;
     private ArrayList<String> ejesx = new ArrayList<>();
-    private ArrayList<Double> ejesy = new ArrayList<>();
-    private ArrayList<String> unirx = new ArrayList<>();
-    private ArrayList<String> uniry = new ArrayList<>();
+    private ArrayList<String> ejesy = new ArrayList<>();
 
-    public Barras(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
+//    public Barras(String titulo) {
+//        super(titulo);
+//    }
     public ArrayList<String> getEjesx() {
         return ejesx;
     }
@@ -38,30 +26,21 @@ public class Barras extends Grafica {
         this.ejesx = ejesx;
     }
 
-    public ArrayList<Double> getEjesy() {
+    public ArrayList<String> getEjesy() {
         return ejesy;
     }
 
-    public void setEjesy(ArrayList<Double> ejesy) {
+    public void setEjesy(ArrayList<String> ejesy) {
         this.ejesy = ejesy;
     }
 
-    public ArrayList<String> getUnirx() {
-        return unirx;
+    @Override
+    public void datosGrafica(){
+        System.out.println(titulo);
+        imprimirDatos(ejesx);
+        imprimirDatos(ejesy);
+        imprimirDatos(unirx);
+        imprimirDatos(uniry);
     }
-
-    public void setUnirx(ArrayList<String> unirx) {
-        this.unirx = unirx;
-    }
-
-    public ArrayList<String> getUniry() {
-        return uniry;
-    }
-
-    public void setUniry(ArrayList<String> uniry) {
-        this.uniry = uniry;
-    }
-
-    
     
 }
