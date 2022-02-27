@@ -6,6 +6,7 @@
 package JFLEX_Y_CUP;
 
 import java_cup.runtime.*;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -199,19 +200,51 @@ public class AnalizadorSintactico extends java_cup.runtime.lr_parser {
 
 
 
+private Symbol s;
+ArrayList<String> temp = new ArrayList<>();
+ArrayList<ArrayList> instrucciones = new ArrayList<>();
+
+
 public AnalizadorSintactico(AnalizadorLexico lexico){
     super(lexico);
 }
-
-private Symbol s;
-
 
 public Symbol getS(){
 return this.s;
 }
 
-        
- 
+//codigo java
+
+
+    public ArrayList<String> getTemp() {
+        return temp;
+    }
+
+    public void setTemp(ArrayList<String> temp) {
+        this.temp = temp;
+    }
+
+    public ArrayList<ArrayList> getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(ArrayList<ArrayList> instrucciones) {
+        this.instrucciones = instrucciones;
+    }
+
+
+    private void añadirString(String dato) {
+        temp.add(dato);
+    }
+    
+    private void reiniciarTemp() {
+        if (temp.size() != 0) {
+            instrucciones.add(temp);
+        }
+        temp = new ArrayList<>();
+    }
+         
+ //tratamiento de errores
     public void report_error(String message, Object info) {
         System.out.println("public void report_error");
     }
@@ -292,7 +325,10 @@ class CUP$AnalizadorSintactico$actions {
           case 3: // bp ::= BARRAS LLABIERTO s3 
             {
               Object RESULT =null;
-
+		int bleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object b = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString((String)b);reiniciarTemp();
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("bp",10, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -301,7 +337,10 @@ class CUP$AnalizadorSintactico$actions {
           case 4: // bp ::= PIE LLABIERTO s4 
             {
               Object RESULT =null;
-
+		int pleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int pright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object p = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString((String)p);reiniciarTemp();
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("bp",10, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -310,7 +349,10 @@ class CUP$AnalizadorSintactico$actions {
           case 5: // s3 ::= TITULO CADENA PUNTOYCOMA s3 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString("T "+"\n"+ (String)c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s3",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -319,7 +361,10 @@ class CUP$AnalizadorSintactico$actions {
           case 6: // s3 ::= EJEX CORABIERTO i CORCERRADO PUNTOYCOMA s3 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		añadirString("EX"+"\n"+(String)e);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s3",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -328,7 +373,10 @@ class CUP$AnalizadorSintactico$actions {
           case 7: // s3 ::= EJEY CORABIERTO f CORCERRADO PUNTOYCOMA s3 
             {
               Object RESULT =null;
-
+		int dleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int dright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object d = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		añadirString("EY "+"\n"+(String)d);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s3",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -337,7 +385,10 @@ class CUP$AnalizadorSintactico$actions {
           case 8: // s3 ::= UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s3 
             {
               Object RESULT =null;
-
+		int xleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int xright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object x = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		añadirString(("U "+"\n"+(String)x));
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s3",1, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -355,7 +406,10 @@ class CUP$AnalizadorSintactico$actions {
           case 10: // s4 ::= TITULO CADENA PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString("T "+"\n"+ (String)c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -364,7 +418,10 @@ class CUP$AnalizadorSintactico$actions {
           case 11: // s4 ::= TIPO cp PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString("TI "+"\n"+ (String)c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -373,7 +430,10 @@ class CUP$AnalizadorSintactico$actions {
           case 12: // s4 ::= ETIQUETAS CORABIERTO i CORCERRADO PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		añadirString("ET"+"\n"+(String)e);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -382,7 +442,10 @@ class CUP$AnalizadorSintactico$actions {
           case 13: // s4 ::= VALORES CORABIERTO m CORCERRADO PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		añadirString("V"+"\n"+(String)e);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -391,7 +454,10 @@ class CUP$AnalizadorSintactico$actions {
           case 14: // s4 ::= TOTAL NUMERO PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString("TO"+"\n"+(String)e);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -400,7 +466,10 @@ class CUP$AnalizadorSintactico$actions {
           case 15: // s4 ::= UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		añadirString("U "+"\n"+(String)e);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -409,7 +478,10 @@ class CUP$AnalizadorSintactico$actions {
           case 16: // s4 ::= EXTRA CADENA PUNTOYCOMA s4 
             {
               Object RESULT =null;
-
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		añadirString("EXT"+"\n"+(String)e);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("s4",2, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -427,7 +499,10 @@ class CUP$AnalizadorSintactico$actions {
           case 18: // cp ::= CANTIDAD 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c+"\n");
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("cp",8, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -436,7 +511,10 @@ class CUP$AnalizadorSintactico$actions {
           case 19: // cp ::= PORCENTAJE 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c+"\n");
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("cp",8, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -445,7 +523,16 @@ class CUP$AnalizadorSintactico$actions {
           case 20: // m ::= NUMERO COMA m 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		int coleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int coright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object co = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c +(String)co +"\n"+ (String)e; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("m",9, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -454,7 +541,10 @@ class CUP$AnalizadorSintactico$actions {
           case 21: // m ::= NUMERO 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c+"\n");
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("m",9, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -463,7 +553,19 @@ class CUP$AnalizadorSintactico$actions {
           case 22: // g ::= LLABIERTO NUMERO COMA NUMERO LLCERRADO COMA g 
             {
               Object RESULT =null;
-
+		int num1left = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)).left;
+		int num1right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)).right;
+		Object num1 = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-5)).value;
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)).value;
+		int num2left = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int num2right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object num2 = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)num1 + (String)c +(String)num2 +"\n"+ (String)e; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("g",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-6)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -472,7 +574,16 @@ class CUP$AnalizadorSintactico$actions {
           case 23: // g ::= LLABIERTO NUMERO COMA NUMERO LLCERRADO 
             {
               Object RESULT =null;
-
+		int num1left = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int num1right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object num1 = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		int num2left = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int num2right = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object num2 = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		 String cadena = (String)num1+(String)c+(String)num2+"\n" ; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("g",7, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -481,7 +592,16 @@ class CUP$AnalizadorSintactico$actions {
           case 24: // f ::= v COMA f 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		int coleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int coright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object co = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c +(String)co +"\n"+ (String)e; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("f",3, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -490,7 +610,10 @@ class CUP$AnalizadorSintactico$actions {
           case 25: // f ::= v 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c+"\n");
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("f",3, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -499,7 +622,10 @@ class CUP$AnalizadorSintactico$actions {
           case 26: // v ::= NUMERO 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("v",4, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -508,7 +634,13 @@ class CUP$AnalizadorSintactico$actions {
           case 27: // v ::= NUMERO u 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c + (String)e; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("v",4, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -517,7 +649,16 @@ class CUP$AnalizadorSintactico$actions {
           case 28: // u ::= o NUMERO u 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		int coleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int coright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object co = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c +(String)co + (String)e; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("u",5, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -526,7 +667,13 @@ class CUP$AnalizadorSintactico$actions {
           case 29: // u ::= o NUMERO 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int coleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int coright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object co = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c +(String)co; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("u",5, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -535,7 +682,22 @@ class CUP$AnalizadorSintactico$actions {
           case 30: // u ::= o PABIERTO NUMERO u PCERRADO 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)).value;
+		int paleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).left;
+		int paright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).right;
+		Object pa = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-3)).value;
+		int xleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int xright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object x = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int pcleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int pcright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object pc = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c +(String)pa+(String)x +(String)e +(String)pc; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("u",5, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-4)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -544,7 +706,10 @@ class CUP$AnalizadorSintactico$actions {
           case 31: // o ::= MAS 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("o",6, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -553,7 +718,10 @@ class CUP$AnalizadorSintactico$actions {
           case 32: // o ::= MENOS 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("o",6, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -562,7 +730,10 @@ class CUP$AnalizadorSintactico$actions {
           case 33: // o ::= POR 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("o",6, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -571,7 +742,10 @@ class CUP$AnalizadorSintactico$actions {
           case 34: // o ::= DIVIDIDO 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c);
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("o",6, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -580,7 +754,16 @@ class CUP$AnalizadorSintactico$actions {
           case 35: // i ::= CADENA COMA i 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)).value;
+		int coleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).left;
+		int coright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).right;
+		Object co = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-1)).value;
+		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 String cadena = (String)c +(String)co +"\n"+ (String)e; RESULT = cadena;
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("i",11, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.elementAt(CUP$AnalizadorSintactico$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;
@@ -589,7 +772,10 @@ class CUP$AnalizadorSintactico$actions {
           case 36: // i ::= CADENA 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$AnalizadorSintactico$stack.peek()).value;
+		 RESULT = String.format("%s",c+"\n");
               CUP$AnalizadorSintactico$result = parser.getSymbolFactory().newSymbol("i",11, ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorSintactico$stack.peek()), RESULT);
             }
           return CUP$AnalizadorSintactico$result;

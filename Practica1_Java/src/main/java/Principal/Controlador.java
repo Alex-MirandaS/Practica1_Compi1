@@ -8,9 +8,11 @@ import GUI.PrincipalGUI;
 import GUI.TablaResultados;
 import JFLEX_Y_CUP.AnalizadorLexico;
 import JFLEX_Y_CUP.AnalizadorSintactico;
+import Objetos.Grafica;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
@@ -26,6 +28,7 @@ public class Controlador {
     AnalizadorSintactico s;
     PrincipalGUI principalGUI = new PrincipalGUI(this);
     TablaResultados tablaResultados = new TablaResultados();
+    ArrayList<Grafica> graficas = new ArrayList<>();
 
     public void iniciar() {
         principalGUI.setVisible(true);
@@ -37,8 +40,16 @@ public class Controlador {
         a.yytext();
         s = new AnalizadorSintactico(a);
 
-        llenarTabla();
+        try {
+            s.parse();
+            verificar();
+        } catch (Exception ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    private void verificar() {
+       
     }
 
     private void llenarTabla() {
@@ -53,11 +64,14 @@ public class Controlador {
 
         try {
             s.parse();
-            for (int i = 0; i < a.getTokens().size(); i++) {
+            for (int i = 0; i < s.getInstrucciones().size(); i++) {
+                for (int j = 0; j < s.getInstrucciones().get(i).size(); j++) {
 
-                modelo.addRow(new Object[]{s.getS().toString()});
+                    System.out.println(s.getInstrucciones().get(i).get(j));
 
-                //modelo.addRow(new Object[]{a.getTokens().get(i).getDatos(), a.getTokens().get(i).getFila(),a.getTokens().get(i).getColumna()});
+                    // modelo.addRow(new Object[]{s.getInstrucciones().get(i).get(j)});
+                    //modelo.addRow(new Object[]{a.getTokens().get(i).getDatos(), a.getTokens().get(i).getFila(),a.getTokens().get(i).getColumna()});
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);

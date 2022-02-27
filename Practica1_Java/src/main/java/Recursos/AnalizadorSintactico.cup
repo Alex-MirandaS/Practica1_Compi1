@@ -3,22 +3,54 @@
 package JFLEX_Y_CUP;
 
 import java_cup.runtime.*;
-
+import java.util.ArrayList;
 parser code {:
+
+private Symbol s;
+ArrayList<String> temp = new ArrayList<>();
+ArrayList<ArrayList> instrucciones = new ArrayList<>();
+
 
 public AnalizadorSintactico(AnalizadorLexico lexico){
     super(lexico);
 }
 
-private Symbol s;
-
-
 public Symbol getS(){
 return this.s;
 }
 
-        
- 
+//codigo java
+
+
+    public ArrayList<String> getTemp() {
+        return temp;
+    }
+
+    public void setTemp(ArrayList<String> temp) {
+        this.temp = temp;
+    }
+
+    public ArrayList<ArrayList> getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(ArrayList<ArrayList> instrucciones) {
+        this.instrucciones = instrucciones;
+    }
+
+
+    private void añadirString(String dato) {
+        temp.add(dato);
+    }
+    
+    private void reiniciarTemp() {
+        if (temp.size() != 0) {
+            instrucciones.add(temp);
+        }
+        temp = new ArrayList<>();
+    }
+         
+ //tratamiento de errores
     public void report_error(String message, Object info) {
         System.out.println("public void report_error");
     }
@@ -69,62 +101,62 @@ s   ::= NUMERO:entero1 MAS NUMERO:entero2                   {: System.out.printl
     ;
 */
 
-n   ::= DEF bp n
+n   ::= DEF bp n                   
     |   DEF bp 
     ;
 
-bp  ::= BARRAS LLABIERTO s3 
-    |   PIE LLABIERTO s4 
+bp  ::= BARRAS:b LLABIERTO s3 {:añadirString((String)b);reiniciarTemp();:}
+    |   PIE:p LLABIERTO s4 {:añadirString((String)p);reiniciarTemp();:}
     ;
 
-s3  ::= TITULO  CADENA  PUNTOYCOMA s3 
-    |   EJEX CORABIERTO  i  CORCERRADO PUNTOYCOMA s3
-    |   EJEY CORABIERTO f CORCERRADO PUNTOYCOMA s3
-    |   UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s3 
+s3  ::= TITULO  CADENA:c  PUNTOYCOMA s3                 {:añadirString("T "+"\n"+ (String)c);:}
+    |   EJEX CORABIERTO  i:e  CORCERRADO PUNTOYCOMA s3  {:añadirString("EX"+"\n"+(String)e);:}
+    |   EJEY CORABIERTO f:d CORCERRADO PUNTOYCOMA s3    {:añadirString("EY "+"\n"+(String)d);:}
+    |   UNIR CORABIERTO g:x CORCERRADO PUNTOYCOMA s3    {:añadirString(("U "+"\n"+(String)x));:}
+    |   LLCERRADO  
+    ;
+
+s4  ::= TITULO  CADENA:c  PUNTOYCOMA s4                     {:añadirString("T "+"\n"+ (String)c);:}
+    |   TIPO cp:c PUNTOYCOMA s4                             {:añadirString("TI "+"\n"+ (String)c);:}
+    |   ETIQUETAS CORABIERTO  i:e  CORCERRADO PUNTOYCOMA s4 {:añadirString("ET"+"\n"+(String)e);:}
+    |   VALORES CORABIERTO m:e CORCERRADO PUNTOYCOMA s4     {:añadirString("V"+"\n"+(String)e);:}
+    |   TOTAL NUMERO:e PUNTOYCOMA s4                        {:añadirString("TO"+"\n"+(String)e);:}
+    |   UNIR CORABIERTO g:e CORCERRADO PUNTOYCOMA s4        {:añadirString("U "+"\n"+(String)e);:}
+    |   EXTRA  CADENA:e  PUNTOYCOMA s4                      {:añadirString("EXT"+"\n"+(String)e);:}
     |   LLCERRADO
     ;
 
-s4  ::= TITULO CADENA PUNTOYCOMA s4
-    |   TIPO cp PUNTOYCOMA s4 
-    |   ETIQUETAS CORABIERTO  i  CORCERRADO PUNTOYCOMA s4
-    |   VALORES CORABIERTO m CORCERRADO PUNTOYCOMA s4
-    |   TOTAL NUMERO PUNTOYCOMA s4
-    |   UNIR CORABIERTO g CORCERRADO PUNTOYCOMA s4 
-    |   EXTRA  CADENA PUNTOYCOMA s4
-    |   LLCERRADO
+cp  ::= CANTIDAD:c      {: RESULT = String.format("%s",c+"\n");:}
+    |   PORCENTAJE:c    {: RESULT = String.format("%s",c+"\n");:}
     ;
 
-cp  ::= CANTIDAD
-    |   PORCENTAJE
+m   ::= NUMERO:c COMA:co m:e   {: String cadena = (String)c +(String)co +"\n"+ (String)e; RESULT = cadena;:}
+    |   NUMERO:c               {: RESULT = String.format("%s",c+"\n");:}
     ;
 
-m   ::= NUMERO COMA m
-    |   NUMERO
+g   ::= LLABIERTO NUMERO:num1 COMA:c NUMERO:num2 LLCERRADO COMA g:e   {: String cadena = (String)num1 + (String)c +(String)num2 +"\n"+ (String)e; RESULT = cadena;:}
+    |   LLABIERTO NUMERO:num1 COMA:c NUMERO:num2 LLCERRADO   {: String cadena = (String)num1+(String)c+(String)num2+"\n" ; RESULT = cadena;:}
     ;
 
-g   ::= LLABIERTO NUMERO COMA NUMERO LLCERRADO COMA g
-    |   LLABIERTO NUMERO COMA NUMERO LLCERRADO
+f   ::= v:c COMA:co f:e    {: String cadena = (String)c +(String)co +"\n"+ (String)e; RESULT = cadena;:}
+    |   v:c                {: RESULT = String.format("%s",c+"\n");:}
+    ;
+//poner (
+v   ::= NUMERO:c               {: RESULT = String.format("%s",c);:}
+    |   NUMERO:c u:e           {: String cadena = (String)c + (String)e; RESULT = cadena;:}
     ;
 
-f   ::= v COMA f
-    |   v
-    ;
-
-v   ::= NUMERO
-    |   NUMERO u
-    ;
-
-u   ::= o NUMERO u
-    |   o NUMERO
-    |   o PABIERTO NUMERO u PCERRADO
+u   ::= o:c NUMERO:co u:e          {: String cadena = (String)c +(String)co + (String)e; RESULT = cadena;:}
+    |   o:c NUMERO:co              {: String cadena = (String)c +(String)co; RESULT = cadena;:}
+    |   o:c PABIERTO:pa NUMERO:x u:e PCERRADO:pc     {: String cadena = (String)c +(String)pa+(String)x +(String)e +(String)pc; RESULT = cadena;:}
     ;
 	
-o   ::= MAS
-    |   MENOS
-    |   POR
-    |   DIVIDIDO
+o   ::= MAS:c       {: RESULT = String.format("%s",c);:}
+    |   MENOS:c     {: RESULT = String.format("%s",c);:}
+    |   POR:c       {: RESULT = String.format("%s",c);:}
+    |   DIVIDIDO:c  {: RESULT = String.format("%s",c);:}
     ;
 
-i   ::= CADENA COMA i
-    |   CADENA
+i   ::=  CADENA:c  COMA:co i:e   {: String cadena = (String)c +(String)co +"\n"+ (String)e; RESULT = cadena;:}
+    |    CADENA:c                {: RESULT = String.format("%s",c+"\n");:}
     ;

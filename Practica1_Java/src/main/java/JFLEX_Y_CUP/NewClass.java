@@ -4,7 +4,9 @@
  */
 package JFLEX_Y_CUP;
 
-import Objetos.Token;
+import Objetos.Barras;
+import Objetos.Grafica;
+import Objetos.Pie;
 import java.util.ArrayList;
 
 /**
@@ -13,16 +15,72 @@ import java.util.ArrayList;
  */
 public class NewClass {
 
-    int asdfasdfasdfas;
+    private boolean titulo,
+            ejex,
+            ejey,
+            unir,
+            tipo,
+            etiquetas,
+            valores,
+            total,
+            unido,
+            extra;
+    ArrayList<Grafica> graficas = new ArrayList<>();
+ArrayList<String> temp = new ArrayList<>();
+ArrayList<ArrayList> instrucciones = new ArrayList<>();
 
-    private ArrayList<Token> tokens = new ArrayList<Token>();
+    public ArrayList<String> getTemp() {
+        return temp;
+    }
 
-    public void agregarToken(String lexema, int fila, int columna) {
-        tokens.add(new Token(lexema, fila, columna));
-           }
+    public void setTemp(ArrayList<String> temp) {
+        this.temp = temp;
+    }
 
-    public ArrayList<Token> getTokens() {
-        return tokens;
+    public ArrayList<ArrayList> getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(ArrayList<ArrayList> instrucciones) {
+        this.instrucciones = instrucciones;
+    }
+
+
+    //xd
+   
+
+//    private void verificarBoolean(boolean valor, String dato) {
+//        if (!valor) {
+//            valor = true;
+//            añadirInstruccion(dato);
+//        } else {
+////añadir errores semanticos
+//        }
+//    }
+//
+//    private void añadirInstruccion(String dato) {
+//        temp.getDatos().add(dato);
+//    }
+//
+//    private void iniciarGrafica(String tipo) {
+//        if (tipo == "Barras") {
+//            temp = new Barras();
+//        } else if (tipo == "Pie") {
+//            temp = new Pie();
+//        }
+//    }
+
+    private void reinicio(boolean valor) {
+        titulo = valor;
+        ejex = valor;
+        ejey = valor;
+        unir = valor;
+        tipo = valor;
+        etiquetas = valor;
+        valores = valor;
+        total = valor;
+        unido = valor;
+        extra = valor;
     }
 
 }
