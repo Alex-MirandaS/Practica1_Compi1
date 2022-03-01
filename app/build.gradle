@@ -29,10 +29,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
 }
 
 dependencies {

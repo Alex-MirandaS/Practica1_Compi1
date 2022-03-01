@@ -6,7 +6,8 @@
 package GUI;
 
 
-import Principal.Controlador;
+
+import com.example.practica1_kotlin.Principal.Controlador;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -100,7 +101,7 @@ public class PrincipalGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
-        control.analizar();
+        control.analizar(areaTexto.getText());
     }//GEN-LAST:event_analizarActionPerformed
 
     private void analizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_analizarMousePressed
