@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import com.example.practica1_kotlin.Instrucciones.ErrorObjeto
 import com.example.practica1_kotlin.Objetos.Barras
 import com.example.practica1_kotlin.Objetos.Grafica
 import com.example.practica1_kotlin.Objetos.Pie
@@ -22,41 +24,62 @@ import com.github.mikephil.charting.utils.ColorTemplate
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 class MainActivity : AppCompatActivity() {
 
+    var erroresBoton: Button ?= null
+    var noGraficas: Button ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        erroresBoton = findViewById(R.id.erroresBoton)
+        noGraficas = findViewById(R.id.noGraficas)
     }
 
-    fun enviarMensaje(view: View) {
+    fun enviarMensaje(texto:String) {
 
-        val editText = findViewById<EditText>(R.id.editTextTextPersonName)
-        val message = editText.text.toString()
         val intent = Intent(this, DisplayMessageActivity::class.java).apply {
-            putExtra(EXTRA_MESSAGE, message)
+            putExtra(EXTRA_MESSAGE, texto)
         }
         startActivity(intent)
     }
 
     fun analizar(view: View){
-        val editText = findViewById<EditText>(R.id.editTextTextPersonName)
+        val layout1 = findViewById<LinearLayout>(R.id.layout1)
+        layout1.removeAllViewsInLayout()
+        val editText = findViewById<EditText>(R.id.editTextTextMultiLine)
         val texto:String = editText.text.toString()
         val controlador:Controlador = Controlador()
         controlador.analizar(texto)
 
         val graficas:ArrayList<Grafica> = controlador.graficas
-        val errores = controlador.errores
+        val errores:ArrayList<ErrorObjeto> = controlador.errores
 
-        verificarGraficar(graficas)
+        verificarGraficar(graficas, errores)
     }
 
-    fun verificarGraficar(grafica:ArrayList<Grafica>) {
+    fun verificarGraficar(grafica:ArrayList<Grafica>, errores:ArrayList<ErrorObjeto>) {
+        var graficasPie:Int = 0
+        var graficasBarra:Int = 0
+        var string:String = ""
         for (graficaTemp in grafica) {
             if (graficaTemp is Barras) {
                 graficarBarra(graficaTemp)
+                graficasBarra++
             } else if (graficaTemp is Pie) {
                 graficarPie(graficaTemp)
+                graficasPie++
             }
         }
+
+if(errores.size == 0){
+    string = "Graficas de Pie: "+graficasPie+"\nGraficas de Pie: "+graficasBarra
+    noGraficas!!.setOnClickListener{enviarMensaje(string)}
+}else{
+    for (error in errores){
+        string = string+"\nLexema: "+error.lexema+"\nLinea: "+error.fila+"\nColumna: "+error.columna+"\nTipo: "+error.tipoError+"\nDescripcion"+error.mensaje+"\n\n"
+    }
+    erroresBoton!!.setOnClickListener{enviarMensaje(string)}
+}
+
     }
 
     private fun graficarPie(pie: Pie) {
@@ -82,8 +105,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        if (tipo.equals("Porcentaje")){
-
+        if (tipo.equals("\nPorcentaje\n")){
             total = 100.0
         }
 
@@ -118,6 +140,7 @@ class MainActivity : AppCompatActivity() {
 
     fun graficarBarra(barra:Barras){
             val barChart = BarChart(this)
+            val titulo:String = barra.titulo
             val unirX:ArrayList<String> = barra.unirx
             val unirY:ArrayList<String> = barra.uniry
             val ejesx:ArrayList<String> = barra.ejesx
@@ -162,7 +185,7 @@ class MainActivity : AppCompatActivity() {
             barChart.setFitBars(true)
             barChart.setData(barData)
             //Aqui deberia ir el titulo pero ya que
-            barChart.getDescription().setText(barra.titulo)
+            barChart.getDescription().setText(titulo)
             barChart.animateY(1500)
 
 

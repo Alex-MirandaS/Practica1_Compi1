@@ -23,11 +23,11 @@ import java.util.logging.Logger;
  * @author alex
  */
 public class Controlador {
-    
-    AnalizadorLexico a;
-    AnalizadorSintactico s;
-    ArrayList<Grafica> graficas = new ArrayList<>();
-    ArrayList<ErrorObjeto> errores = new ArrayList<>();
+
+    private AnalizadorLexico a;
+    private AnalizadorSintactico s;
+    private ArrayList<Grafica> graficas = new ArrayList<>();
+    private ArrayList<ErrorObjeto> errores = new ArrayList<>();
 
     public void analizar(String string) {
         Reader reader = new StringReader(string);
@@ -58,8 +58,13 @@ public class Controlador {
                 // modelo.addRow(new Object[]{s.getInstrucciones().get(i).get(j)});
                 //modelo.addRow(new Object[]{a.getTokens().get(i).getDatos(), a.getTokens().get(i).getFila(),a.getTokens().get(i).getColumna()});
             }
+
             if (!error) {
-                graficas.add(crearGrafica(temp));
+                Grafica gra = crearGrafica(temp);
+                boolean error2 = verificarGrafica(gra);
+                if (!error2){
+                    graficas.add(gra);
+                }
             }
             //impprimir graficas
 
@@ -75,7 +80,43 @@ public class Controlador {
             }
         }
     }
-    
+
+    private boolean verificarGrafica(Grafica graficaTemp) {
+
+        if (graficaTemp instanceof Barras) {
+            Barras tempBarras = (Barras) graficaTemp;
+            if (tempBarras.getTitulo()!=null &&
+                    tempBarras.getEjesx()!=null &&
+                    tempBarras.getEjesy() !=null &&
+                    tempBarras.getEjesx().size()==tempBarras.getEjesy().size() &&
+                    tempBarras.getUnirx()!=null &&
+                    tempBarras.getUniry()!=null &&
+                    tempBarras.getUniry().size()==tempBarras.getUnirx().size()
+            ){
+                return false;
+            }
+        } else if (graficaTemp instanceof Pie) {
+            Pie tempPie = (Pie) graficaTemp;
+             if (tempPie.getTitulo()!=null &&
+                     tempPie.getTipo()!=null &&
+                        tempPie.getEtiquetas()!=null &&
+                        tempPie.getValores() !=null &&
+                        tempPie.getEtiquetas().size()==tempPie.getValores().size() &&
+                        tempPie.getExtra()!=null &&
+                        tempPie.getUnirx()!=null &&
+                        tempPie.getUniry()!=null &&
+                        tempPie.getUniry().size()==tempPie.getUnirx().size()
+                ){
+                 if (tempPie.getTipo().equals("Cantidad") && tempPie.getTotal()<1){
+                    return true;
+                }
+                 return false;
+
+        }
+    }
+        return true;
+    }
+
     private Grafica crearGrafica(ArrayList<String> temp) {
         String tipoGrafica = temp.get(temp.size() - 1);
         Grafica graficaTemp;
@@ -88,6 +129,7 @@ public class Controlador {
         }
         
         temp.remove(temp.size() - 1);
+
         return verificarDatos(graficaTemp, temp);
         
     }
