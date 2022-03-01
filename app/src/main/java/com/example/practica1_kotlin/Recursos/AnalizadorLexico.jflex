@@ -48,7 +48,7 @@ CCERRADO = "”"
 COMENTARIO = ("#"(.)*)
 NUMERO = [0-9]+
 LETRAS = [a-zA-Z]+
-ESPACIO = ("")
+ESPACIO = (" ")
 CADENA = ({COMILLA}{LETRAS}({LETRAS}|{NUMERO}|{ESPACIO})*{COMILLA})|({CABIERTO}{LETRAS}({LETRAS}|{NUMERO}|{ESPACIO})*{CCERRADO})
 
 %{
@@ -102,5 +102,4 @@ CADENA = ({COMILLA}{LETRAS}({LETRAS}|{NUMERO}|{ESPACIO})*{COMILLA})|({CABIERTO}{
 {NUMERO}        { return new Symbol(sym.NUMERO, yyline + 1, yycolumn + 1, yytext()); }
 {NUMERO} {PUNTO} {NUMERO}       { return new Symbol(sym.DECIMAL, yyline + 1, yycolumn + 1, yytext());}
 {CADENA}        { return new Symbol(sym.CADENA, yyline + 1, yycolumn + 1, yytext()); }
-
 [^] {}

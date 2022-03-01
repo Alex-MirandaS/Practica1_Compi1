@@ -1,6 +1,5 @@
 package com.example.practica1_kotlin
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +8,6 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import com.example.practica1_kotlin.JFLEX_Y_CUP.AnalizadorLexico
-import com.example.practica1_kotlin.JFLEX_Y_CUP.AnalizadorSintactico
 import com.example.practica1_kotlin.Objetos.Barras
 import com.example.practica1_kotlin.Objetos.Grafica
 import com.example.practica1_kotlin.Objetos.Pie
@@ -21,7 +18,6 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
-import java.io.StringReader
 
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 class MainActivity : AppCompatActivity() {
@@ -106,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val pieDataSet:PieDataSet = PieDataSet(entradas,"")
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS.asList())
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS,255)
         pieDataSet.setValueTextColor(Color.BLACK)
         pieDataSet.setValueTextSize(16f)
 
@@ -116,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         pieChart.animateY(1500)
         val layout1 = findViewById<LinearLayout>(R.id.layout1)
         layout1.addView(pieChart)
-
+        pieChart.layoutParams.height = 500
 
     }
 
